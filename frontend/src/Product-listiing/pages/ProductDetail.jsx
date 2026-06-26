@@ -2,14 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { Product, Rating } from "../../types";
 
 // Star rating helper component
-interface StarRatingProps {
-  rating?: Rating;
-}
-
-function StarRating({ rating }: StarRatingProps) {
+function StarRating({ rating }) {
   if (!rating) return null;
   const rate = rating.rate || 0;
   const count = rating.count || 0;
@@ -57,12 +52,12 @@ function DetailSkeleton() {
 }
 
 function ProductDetail() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [addedToCart, setAddedToCart] = useState<boolean>(false);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   const fetchProductDetail = () => {
     setLoading(true);
@@ -74,14 +69,14 @@ function ProductDetail() {
         }
         return response.json();
       })
-      .then((data: Product) => {
+      .then((data) => {
         if (!data) {
           throw new Error("Product not found.");
         }
         setProduct(data);
         setLoading(false);
       })
-      .catch((err: any) => {
+      .catch((err) => {
         setError(err.message || "An error occurred while loading details.");
         setLoading(false);
       });
@@ -94,7 +89,7 @@ function ProductDetail() {
   }, [id]);
 
   // Helper to match category specific badges style class
-  const getBadgeClass = (category?: string) => {
+  const getBadgeClass = (category) => {
     if (!category) return "badge-default";
     const lower = category.toLowerCase();
     if (lower.includes("electronics")) return "badge-electronics";

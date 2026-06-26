@@ -2,7 +2,21 @@ import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import Productlisting from '../Product-listiing/pages/Productlisting';
 import { BrowserRouter } from 'react-router-dom';
-import { Product } from '../types';
+
+interface Rating {
+  rate: number;
+  count: number;
+}
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating?: Rating;
+}
 
 const mockProducts: Product[] = [
   {

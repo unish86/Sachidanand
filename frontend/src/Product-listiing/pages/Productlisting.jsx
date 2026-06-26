@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Product, Rating } from "../../types";
 
 // Star rating component to display review score and count
-interface StarRatingProps {
-  rating?: Rating;
-}
-
-function StarRating({ rating }: StarRatingProps) {
+function StarRating({ rating }) {
   if (!rating) return null;
   const rate = rating.rate || 0;
   const count = rating.count || 0;
@@ -51,19 +46,19 @@ function SkeletonCard() {
 }
 
 function Productlisting() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Filter states
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<string>("");
-  const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [sortOption, setSortOption] = useState<string>("default");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [sortOption, setSortOption] = useState("default");
 
   // Pagination states
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
   // Fetch data on component mount
@@ -77,11 +72,11 @@ function Productlisting() {
         }
         return response.json();
       })
-      .then((data: Product[]) => {
+      .then((data) => {
         setProducts(data);
         setLoading(false);
       })
-      .catch((err: any) => {
+      .catch((err) => {
         setError(err.message || "An error occurred while loading products.");
         setLoading(false);
       });
@@ -110,7 +105,7 @@ function Productlisting() {
   const categories = ["All", ...new Set(products.map((p) => p.category))];
 
   // Helper to match category specific badges style class
-  const getBadgeClass = (category: string) => {
+  const getBadgeClass = (category) => {
     if (!category) return "badge-default";
     const lower = category.toLowerCase();
     if (lower.includes("electronics")) return "badge-electronics";

@@ -7,6 +7,8 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "rootDir": ".",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -22,7 +24,7 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
 
-    "types": ["vite/client", "jest", "node"]
+    "types": ["vite/client", "jest", "node", "@testing-library/jest-dom"]
   },
   "include": ["src"]
 }
